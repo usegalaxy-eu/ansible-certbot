@@ -1,19 +1,17 @@
 ---
 - name: Create the ssl-cert group if it doesn't exist
   group:
-    name: ssl-cert
+    name: "{{ certbot_ssl_group }}"
     state: present
     system: yes
+  when: certbot_ssl_group is defined
 
-- set_fact:
-    ssl_cert_group_available: true
-
-- name: Write the certificate post-renewal script
+- name: Write the certificate post-renewal hook script
   copy:
     content: |
         #!/bin/bash
         mkdir -p  /etc/ssl/private/
-        chmod 755 /etc/ssl/private/
+        chmod {{ certbot_ssl_private_dir_mode | default(750) }} /etc/ssl/private/
         chown root:ssl-cert /etc/ssl/private/
         # Chain
         cp /etc/letsencrypt/live/{{ certbot_hostname_override | default(certbot_domains[0]) }}/fullchain.pem /etc/ssl/certs/fullchain.pem
@@ -34,11 +32,7 @@
         {% endfor %}
         # Other
         {{ certbot_post_renewal }}
-
     dest: /etc/letsencrypt/renewal-hooks/post/ansible.sh
     owner: root
     group: root
     mode: "0755"
-
-- name: Execute the certificate post-renewal script
-  command: /etc/letsencrypt/renewal-hooks/post/ansible.sh
