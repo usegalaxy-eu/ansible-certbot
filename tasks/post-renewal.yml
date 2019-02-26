@@ -12,23 +12,28 @@
         #!/bin/bash
         mkdir -p  /etc/ssl/private/
         chmod {{ certbot_ssl_private_dir_mode | default(750) }} /etc/ssl/private/
-        chown root:ssl-cert /etc/ssl/private/
-        # Chain
+        chown root:{{ certbot_ssl_group | default('') }} /etc/ssl/private/
+        # Chai
         cp /etc/letsencrypt/live/{{ certbot_hostname_override | default(certbot_domains[0]) }}/fullchain.pem /etc/ssl/certs/fullchain.pem
         chmod 644           /etc/ssl/certs/fullchain.pem
-        chown root:ssl-cert /etc/ssl/certs/fullchain.pem
+        chown root:{{ certbot_ssl_group | default('') }} /etc/ssl/certs/fullchain.pem
         # Cert
         cp /etc/letsencrypt/live/{{ certbot_hostname_override | default(certbot_domains[0]) }}/cert.pem      /etc/ssl/certs/cert.pem
         chmod 644           /etc/ssl/certs/cert.pem
-        chown root:ssl-cert /etc/ssl/certs/cert.pem
+        chown root:{{ certbot_ssl_group | default('') }} /etc/ssl/certs/cert.pem
         # Privkey
         cp /etc/letsencrypt/live/{{ certbot_hostname_override | default(certbot_domains[0]) }}/privkey.pem   /etc/ssl/private/privkey.pem
         chmod 640           /etc/ssl/private/privkey.pem
-        chown root:ssl-cert /etc/ssl/private/privkey.pem
+        chown root:{{ certbot_ssl_group | default('') }} /etc/ssl/private/privkey.pem
         # For each user, create custom version
+        {% if certbot_share_key_users %}
+        mkdir -p {{ certbot_share_key_dir }}
+        chmod 755 {{ certbot_share_key_dir }}
+        chown root:root {{ certbot_share_key_dir }}
+        {% endif %}
         {% for user in certbot_share_key_users %}
-        cp /etc/ssl/private/privkey.pem /etc/ssl/private/privkey-{{ user }}.pem
-        chown {{ user }}: /etc/ssl/private/privkey-{{ user }}.pem
+        cp /etc/ssl/private/privkey.pem {{ certbot_share_key_dir }}/privkey-{{ user }}.pem
+        chown {{ user }}: {{ certbot_share_key_dir }}/privkey-{{ user }}.pem
         {% endfor %}
         # Other
         {{ certbot_post_renewal }}

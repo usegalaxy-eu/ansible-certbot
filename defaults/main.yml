@@ -21,6 +21,7 @@ certbot_dir: /opt/certbot
 certbot_environment: production
 
 certbot_share_key_users: []
+certbot_share_key_dir: /etc/ssl/user
 
 # Set to true to run `certbot certonly` even if its config already exists
 certbot_force_run: "{{ certbot_expand }}"
