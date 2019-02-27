@@ -12,14 +12,18 @@
         {{ "--test-cert" if certbot_environment == "staging" else "" }}
         --non-interactive
         {% if certbot_dns_provider is defined %}
-        --dns-{{ certbot_dns_provider }}
+            --dns-{{ certbot_dns_provider }}
         {% else %}
-        {{ certbot_auth_method | default("--standalone") }}
+            {{ certbot_auth_method | default("--standalone") }}
         {% endif %}
-        -m {{ certbot_admin_email }}
+        {% if certbot_admin_email %}
+            -m {{ certbot_admin_email }}
+        {% else %}
+            --register-unsafely-without-email
+        {% endif %}
         {{ certbot_agree_tos }}
         {% if certbot_auth_method | default("--standalone") == "--webroot" %}
-        -w {{ certbot_well_known_root }}
+            -w {{ certbot_well_known_root }}
         {% endif %}
         -d {{ ','.join(certbot_domains) }}
         {{ "--expand" if certbot_expand else "" }}
