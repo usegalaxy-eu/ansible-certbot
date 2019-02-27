@@ -16,7 +16,7 @@
         {% else %}
             {{ certbot_auth_method | default("--standalone") }}
         {% endif %}
-        {% if certbot_admin_email %}
+        {% if certbot_admin_email is defined %}
             -m {{ certbot_admin_email }}
         {% else %}
             --register-unsafely-without-email
