@@ -11,8 +11,10 @@
     content: |
         #!/bin/bash
         mkdir -p  /etc/ssl/private/
+        {% if certbot_ssl_group is defined %}
         chmod {{ certbot_ssl_private_dir_mode | default(750) }} /etc/ssl/private/
         chown root:{{ certbot_ssl_group | default('') }} /etc/ssl/private/
+        {% endif %}
         # Chai
         cp /etc/letsencrypt/live/{{ certbot_hostname_override | default(certbot_domains[0]) }}/fullchain.pem /etc/ssl/certs/fullchain.pem
         chmod 644           /etc/ssl/certs/fullchain.pem
