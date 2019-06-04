@@ -11,7 +11,7 @@
   when: certbot_install_method == 'source'
 
 - name: Include package installation tasks
-  include_tasks: install-from-package.yml
+  include_tasks: install-with-package.yml
   when: certbot_install_method == 'package'
 
 - name: Include cert request tasks
