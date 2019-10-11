@@ -16,15 +16,15 @@
         chown root:{{ certbot_ssl_group | default('') }} /etc/ssl/private/
         {% endif %}
         # Chai
-        cp /etc/letsencrypt/live/{{ certbot_hostname_override | default(certbot_domains[0]) }}/fullchain.pem /etc/ssl/certs/fullchain.pem
+        cp {{ certbot_letsencrypt_dir }}/live/{{ certbot_hostname_override | default(certbot_domains[0]) }}/fullchain.pem /etc/ssl/certs/fullchain.pem
         chmod 644           /etc/ssl/certs/fullchain.pem
         chown root:{{ certbot_ssl_group | default('') }} /etc/ssl/certs/fullchain.pem
         # Cert
-        cp /etc/letsencrypt/live/{{ certbot_hostname_override | default(certbot_domains[0]) }}/cert.pem      /etc/ssl/certs/cert.pem
+        cp {{ certbot_letsencrypt_dir }}/live/{{ certbot_hostname_override | default(certbot_domains[0]) }}/cert.pem      /etc/ssl/certs/cert.pem
         chmod 644           /etc/ssl/certs/cert.pem
         chown root:{{ certbot_ssl_group | default('') }} /etc/ssl/certs/cert.pem
         # Privkey
-        cp /etc/letsencrypt/live/{{ certbot_hostname_override | default(certbot_domains[0]) }}/privkey.pem   /etc/ssl/private/privkey.pem
+        cp {{ certbot_letsencrypt_dir }}/live/{{ certbot_hostname_override | default(certbot_domains[0]) }}/privkey.pem   /etc/ssl/private/privkey.pem
         chmod 640           /etc/ssl/private/privkey.pem
         chown root:{{ certbot_ssl_group | default('') }} /etc/ssl/private/privkey.pem
         # For each user, create custom version
@@ -39,7 +39,7 @@
         {% endfor %}
         # Other
         {{ certbot_post_renewal }}
-    dest: /etc/letsencrypt/renewal-hooks/post/ansible.sh
+    dest: "{{ certbot_letsencrypt_dir }}/renewal-hooks/post/ansible.sh"
     owner: root
     group: root
     mode: "0755"
