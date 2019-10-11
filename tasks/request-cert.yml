@@ -30,7 +30,7 @@
         {{ certbot_auto_renew_extra }}
   register: request
   args:
-    creates: "{{ '/__not_a_real_file' if certbot_force_run else '/etc/letsencrypt/renewal/' ~ (certbot_hostname_override | default(certbot_domains[0])) ~ '.conf' }}"
+    creates: "{{ '/__not_a_real_file' if certbot_force_run else certbot_letsencrypt_dir ~ '/renewal/' ~ (certbot_hostname_override | default(certbot_domains[0])) ~ '.conf' }}"
   notify:
     - Execute the certificate post-renewal script
 
