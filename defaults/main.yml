@@ -21,6 +21,7 @@ certbot_expand: false
 certbot_dir: /opt/certbot
 
 certbot_letsencrypt_dir: /etc/letsencrypt
+certbot_dns_credentials_file: "{{ certbot_letsencrypt_dir }}/dns-{{ certbot_dns_provider }}-credentials.ini"
 
 certbot_environment: production
 
