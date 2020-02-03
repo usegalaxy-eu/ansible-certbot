@@ -2,6 +2,7 @@
 dependencies: []
 
 galaxy_info:
+  role_name: certbot
   author: usegalaxy-eu
   description: "Certbot with custom additions"
   license: "license (BSD, MIT)"
