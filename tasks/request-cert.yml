@@ -3,7 +3,7 @@
   file:
     path: "{{ certbot_well_known_root }}"
     state: directory
-  when: certbot_auth_method == "--webroot"
+  when: certbot_auth_method | default("--standalone") == "--webroot"
 
 - name: DNS provider credential task block
   block:
