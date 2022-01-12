@@ -10,6 +10,7 @@ certbot_auto_renew_extra: ""
 # version of Certbot), set this variable to `yes` and configure other options.
 certbot_install_method: virtualenv
 certbot_package: certbot
+certbot_dns_plugin_package: "certbot-dns-{{ certbot_dns_provider }}"
 certbot_script: "{{ certbot_package }}"
 certbot_repo: https://github.com/certbot/certbot.git
 certbot_version: master
@@ -22,7 +23,7 @@ certbot_dir: /opt/certbot
 
 certbot_letsencrypt_dir: /etc/letsencrypt
 # the test in tasks/request-cert.yml ensure that this is not used if certbot_dns_provider is not defined
-# but a default is necessary to ensure that an error is not triggered when certbot_dns_provider is not defined 
+# but a default is necessary to ensure that an error is not triggered when certbot_dns_provider is not defined
 certbot_dns_credentials_file: "{{ certbot_letsencrypt_dir }}/dns-{{ certbot_dns_provider | default('ERROR') }}-credentials.ini"
 
 certbot_environment: production
