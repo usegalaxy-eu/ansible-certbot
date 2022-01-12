@@ -29,6 +29,6 @@
 
 - name: Install Certbot DNS package
   package:
-    name: "certbot-dns-{{ certbot_dns_provider }}"
+    name: "{{ certbot_dns_plugin_package }}"
     state: present
   when: certbot_dns_provider is defined
