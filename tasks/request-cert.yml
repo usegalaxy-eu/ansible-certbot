@@ -34,7 +34,7 @@
         {{ "--test-cert" if certbot_environment == "staging" else "" }}
         --non-interactive
         {% if certbot_dns_provider is defined %}
-            --dns-{{ certbot_dns_provider }}
+            --authenticator dns-{{ certbot_dns_provider }}
             {% if certbot_dns_credentials is defined %}
             --dns-{{ certbot_dns_provider }}-credentials {{ certbot_dns_credentials_file }}
             {% endif %}
