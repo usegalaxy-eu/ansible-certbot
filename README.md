@@ -34,6 +34,17 @@ Certbot Git repository options. To install from source, set `certbot_install_fro
 
 The directory inside which Certbot will be cloned.
 
+### DNS providers
+
+If you use a DNS provider such as Cloudflare or similar, the following variables are available:
+
+    certbot_dns_provider: cloudflare
+    certbot_dns_credentials:
+        api_token: your_dns_provider_api_token
+    dns_provider_propagation_seconds: 60
+
+See `certbot --help all` for details
+
 ## Dependencies
 
 None.
