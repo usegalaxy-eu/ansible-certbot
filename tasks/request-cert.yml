@@ -38,6 +38,9 @@
             {% if certbot_dns_credentials is defined %}
             --dns-{{ certbot_dns_provider }}-credentials {{ certbot_dns_credentials_file }}
             {% endif %}
+            {% if certbot_dns_provider_propagation_seconds is defined %}
+            --dns-{{ certbot_dns_provider }}-propagation-seconds {{ certbot_dns_provider_propagation_seconds }}
+            {% endif %}
         {% else %}
             {{ certbot_auth_method | default("--standalone") }}
         {% endif %}
