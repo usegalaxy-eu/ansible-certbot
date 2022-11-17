@@ -41,9 +41,9 @@ If you use a DNS provider such as Cloudflare or similar, the following variables
     certbot_dns_provider: cloudflare
     certbot_dns_credentials:
         api_token: your_dns_provider_api_token
-    dns_provider_propagation_seconds: 60
+    certbot_dns_provider_propagation_seconds: 60
 
-See `certbot --help all` for details
+Valid options for `certbot_dns_credentials` vary by DNS provider. See `certbot --help all` for details.
 
 ## Dependencies
 
