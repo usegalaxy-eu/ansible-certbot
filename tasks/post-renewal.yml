@@ -35,7 +35,7 @@
         {% endif %}
         {% for user in certbot_share_key_users %}
         cp /etc/ssl/private/privkey.pem {{ certbot_share_key_dir }}/privkey-{{ user }}.pem
-        chown {{ user }}: {{ certbot_share_key_dir }}/privkey-{{ user }}.pem
+        chown {{ user }} {{ certbot_share_key_dir }}/privkey-{{ user }}.pem
         {% endfor %}
         # Other
         {{ certbot_post_renewal }}
