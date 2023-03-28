@@ -57,7 +57,7 @@ None.
         certbot_auto_renew_user: your_username_here
         certbot_auto_renew_minute: 20
         certbot_auto_renew_hour: 5
-    
+        # certbot_agree_tos: "--agree-tos" # Uncomment me to agree
       roles:
         - geerlingguy.certbot
 
