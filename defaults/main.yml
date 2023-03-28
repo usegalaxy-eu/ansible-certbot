@@ -33,3 +33,8 @@ certbot_share_key_dir: /etc/ssl/user
 
 # Set to true to run `certbot certonly` even if its config already exists
 certbot_force_run: "{{ certbot_expand }}"
+
+# Agree to the TOS
+certbot_agree_tos: ""
+# Must be set as following to agree automatically, otherwise it will fail.
+# certbot_agree_tos: "--agree-tos"
