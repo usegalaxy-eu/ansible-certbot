@@ -28,7 +28,10 @@ certbot_dns_credentials_file: "{{ certbot_letsencrypt_dir }}/dns-{{ certbot_dns_
 
 certbot_environment: production
 
+# of the format 'nginx', 'root'
 certbot_share_key_users: []
+# of the format '999:999'
+certbot_share_key_ids: []
 certbot_share_key_dir: /etc/ssl/user
 
 # Set to true to run `certbot certonly` even if its config already exists
