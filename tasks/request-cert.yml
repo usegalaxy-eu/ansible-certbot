@@ -27,6 +27,7 @@
           {% endfor %}
         dest: "{{ certbot_dns_credentials_file }}"
         mode: "0400"
+      no_log: true
 
 - name: Request certificate
   ansible.builtin.command: >-
