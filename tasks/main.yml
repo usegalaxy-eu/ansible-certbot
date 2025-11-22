@@ -13,7 +13,7 @@
 
 - name: Include cert request tasks
   ansible.builtin.include_tasks: request-cert.yml
-  when: certbot_domains
+  when: certbot_domains | length > 0
 
 - name: Include post-renewal script setup tasks
   ansible.builtin.include_tasks: post-renewal.yml
