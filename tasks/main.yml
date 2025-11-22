@@ -17,7 +17,7 @@
 
 - name: Include post-renewal script setup tasks
   ansible.builtin.include_tasks: post-renewal.yml
-  when: certbot_post_renewal is defined and certbot_post_renewal
+  when: certbot_post_renewal is defined and certbot_post_renewal | length > 0
 
 # Force the post-renewal script to execute in case SSL webserver setup handlers run in the same play and execute before
 # our handler (handlers are run in the order their definitions are read, not in the order they are notified)
